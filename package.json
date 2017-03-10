@@ -1,5 +1,5 @@
 {
-  "name": "gumga-form",
+  "name": "gumga-form-ng",
   "version": "1.0.0",
   "description": "Gumga Form",
   "main": "./src/index.js",
@@ -41,7 +41,8 @@
   },
   "keywords": [
     "gumga",
-    "form"
+    "form",
+    "angular 1.x"
   ],
   "author": "Gumga Tecnologia da Informação S/A",
   "license": "LGPL-3.0"

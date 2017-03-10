@@ -1,5 +1,5 @@
 {
-  "name": "gumga-form",
+  "name": "gumga-form-ng",
   "description": "Gumga Form",
   "main": "./src/index.js",
   "authors": [
@@ -8,7 +8,8 @@
   "license": "LGPL-3.0",
   "keywords": [
     "gumga",
-    "form"
+    "form",
+    "angular 1.x"
   ],
   "homepage": "https://github.com/guiseek/gumga-form-ng",
   "ignore": [
