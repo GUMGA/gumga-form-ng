@@ -566,6 +566,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 },{}],12:[function(require,module,exports){
 'use strict';
 
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 (function () {
 	'use strict';
 
@@ -593,61 +595,129 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					throw "O Objeto de configuração precisa ter o atributo options, veja na  <a target=\"_blank\" href=\"http://gumga.github.io\">documentação</a>";
 				}
 
+				//VALIDA QUANDO O TYPE FOR OBJETO
+				var validateObject = function validateObject(value, config) {
+					if (!config.hasOwnProperty('empty')) {
+						validateEmpty(value, config.empty, 'empty');
+					}
+					if (config.hasOwnProperty('fields')) {
+						validateFields(value, config.fields);
+					}
+					if (config) {
+						validateIsObject(value, config, 'type');
+					}
+				};
+
+				//VALIDA QUANDO O TYPE FOR ARRAY
+				var validateArray = function validateArray(value, config) {
+					validateEmpty(value, config.empty, 'empty');
+
+					if (config.hasOwnProperty('min') && value) {
+						validateMin(value.length, config.min, 'min');
+					}
+
+					if (config.hasOwnProperty('max') && value) {
+						validateMax(value.length, config.max, 'max');
+					}
+
+					if (config) {
+						validateIsArray(value, config, 'type');
+					}
+
+					if (config && config.childs) {
+						validateChilds(value, config.childs);
+					}
+				};
+
+				var validateChilds = function validateChilds(value, childs) {
+					childs.forEach(function (child) {
+						if (value) validateModel(value[child.position], child);
+					});
+				};
+
+				var validateFields = function validateFields(value, fields) {
+					fields.forEach(function (field) {
+						var fieldValue = value ? value[field.name] : null;
+						if (field.empty && _typeof(field.empty) == 'object') {
+							validateEmpty(fieldValue, field.empty, field.name + '-empty');
+						}
+						if (field.equal && _typeof(field.equal) == 'object') {
+							validateEqual(fieldValue, field.equal, field.name + '-equal');
+						}
+						if (field.contains && _typeof(field.contains) == 'object') {
+							validateContains(fieldValue, field.contains, field.name + '-contains');
+						}
+						if (field.max && _typeof(field.max) == 'object') {
+							validateMax(fieldValue, field.max, field.name + '-max');
+						}
+						if (field.min && _typeof(field.min) == 'object') {
+							validateMin(fieldValue, field.min, field.name + '-min');
+						}
+						if (field.regex && _typeof(field.regex) == 'object') {
+							validateRegex(fieldValue, field.regex, field.name + '-regex');
+						}
+					});
+				};
+
 				//CRIA ERRO SE FOR VAZIO
-				var validateEmpty = function validateEmpty(value) {
-					if (!configuration.options.hasOwnProperty('empty')) return;
-					var isvalid = !(value == undefined || value == '' || value.length == 0);
-					gumgaCtrl.updateFormErrors(configuration.ngModel, 'empty', isvalid, configuration.options.empty.message);
+				var validateEmpty = function validateEmpty(value, config, key) {
+					var isvalid = !((value == undefined || value == '' || value.length == 0) && !config.value);
+					if (config && config.message) gumgaCtrl.updateFormErrors(configuration.ngModel, key, isvalid, config.message);
+				};
+
+				//CRIA ERRO SE O VALOR NAO FOR IGUAL AO ESPERADO
+				var validateEqual = function validateEqual(value, config, key) {
+					var isvalid = value == config.value;
+					if (config && config.message) gumgaCtrl.updateFormErrors(configuration.ngModel, key, isvalid, config.message);
+				};
+
+				//CRIA ERRO SE O VALOR NAO CONTER AO ESPERADO
+				var validateContains = function validateContains(value, config, key) {
+					var isvalid = value && value.indexOf(config.value) != -1;
+					if (config && config.message) {
+						gumgaCtrl.updateFormErrors(configuration.ngModel, key, isvalid, config.message);
+					}
+				};
+
+				var validateRegex = function validateRegex(value, config, key) {
+					var isvalid = RegExp(config.value).test(value);
+					gumgaCtrl.updateFormErrors(configuration.ngModel, key, isvalid, config.message);
 				};
 
 				//CRIA ERRO SE O TIPO NÃO FOR OBJETO =
-				var validateIsObject = function validateIsObject(value) {
+				var validateIsObject = function validateIsObject(value, config, key) {
 					var isvalid = !(value !== Object(value));
-					gumgaCtrl.updateFormErrors(configuration.ngModel, 'type', isvalid, configuration.options.message);
+					if (config && config.message) gumgaCtrl.updateFormErrors(configuration.ngModel, key, isvalid, config.message);
 				};
 
-				var validateIsArray = function validateIsArray(value) {
+				var validateIsArray = function validateIsArray(value, config, key) {
 					var isvalid = Array.isArray(value);
-					gumgaCtrl.updateFormErrors(configuration.ngModel, 'type', isvalid, configuration.options.message);
+					if (config && config.message) gumgaCtrl.updateFormErrors(configuration.ngModel, 'type', isvalid, config.message);
 				};
 
-				var validateObject = function validateObject(value) {
-					validateEmpty(value);
-					validateIsObject(value);
+				var validateMin = function validateMin(value, config, key) {
+					var isvalid = !(value < config.value);
+					if (config && config.message) gumgaCtrl.updateFormErrors(configuration.ngModel, key, isvalid, config.message);
 				};
 
-				var validateMin = function validateMin(value) {
-					if (!configuration.options.hasOwnProperty('min') || !value) return;
-					var isvalid = !(value.length < configuration.options.min.value);
-					gumgaCtrl.updateFormErrors(configuration.ngModel, 'min', isvalid, configuration.options.min.message);
+				var validateMax = function validateMax(value, config, key) {
+					var isvalid = !(value > config.value);
+					gumgaCtrl.updateFormErrors(configuration.ngModel, key, isvalid, config.message);
 				};
 
-				var validateMax = function validateMax(value) {
-					if (!configuration.options.hasOwnProperty('max') || !value) return;
-					var isvalid = !(value.length > configuration.options.max.value);
-					gumgaCtrl.updateFormErrors(configuration.ngModel, 'max', isvalid, configuration.options.max.message);
-				};
-
-				var validateArray = function validateArray(value) {
-					validateEmpty(value);
-					validateMin(value);
-					validateMax(value);
-					validateIsArray(value);
-				};
-
-				var validateModel = function validateModel(value) {
-					switch (configuration.options.type.toLowerCase().trim()) {
+				var validateModel = function validateModel(value, config) {
+					switch (config.type.toLowerCase().trim()) {
 						case 'object':
-							validateObject(value);
+							validateObject(value, config);
 							break;
 						case 'array':
-							validateArray(value);
+							validateArray(value, config);
 							break;
 					}
 				};
 
 				scope.$watch(configuration.ngModel, function (value) {
-					validateModel(value);
+					validateModel(value, configuration.options);
 					scope.$broadcast('form-changed');
 				}, true);
 			}

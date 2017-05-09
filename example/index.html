@@ -12,26 +12,18 @@
 
     <br><br><br>
   <div class="container">
+
     <form name="myForm" gumga-form>
 
-      <gumga-many-to-many
-        left-list="pessoas.data"
-        text-left="Listando {{$value}} {{$value > 1 ? 'itens': 'item'}}"
-        text-right="Listando {{$value}} {{$value > 1 ? 'itens': 'item'}}"
-        right-list="selecionados"
-        gumga-model-error="configManyToMany"
-        left-search="pessoas.methods.asyncSearch('nome', param)"
-        authorize-add="false">
-        <left-field>{{$value.nome}}</left-field>
-        <right-field>{{$value.nome}}</right-field>
-      </gumga-many-to-many>
-
-      <gumga-many-to-one value="pessoa"
+      <label>Cliente</label>
+      <gumga-many-to-one
+        value="selecionado"
+        gumga-model-error="configManyToOne"
         search-method="pessoas.methods.asyncSearch('nome', param)"
         editable="false"
-        gumga-model-error="configManyToOne"
         field="nome"
-        authorize-add="false" async="true"
+        authorize-add="false"
+        async="true"
         display-info="false">
       <match>
         <div>{{match.model.nome}}</div>
@@ -47,6 +39,61 @@
       <br>
       <gumga-errors placement="right" icon="glyphicon glyphicon-info-sign" label="Campos inválidos" title="Campos inválidos"></gumga-errors>
     </form>
+
+    <br>
+
+    <div class="row">
+      <div class="col-sm-6">
+<pre>
+Arrar exemplo: $scope.items = []
+{
+  ngModel : 'items', //NOME DA VARIAVEL NO SCOPE
+  options : {
+    type: 'array', //ng model deve ser um array
+    message: 'Não é um array',
+    empty: {
+      value: false, //NAO PODE SER VAZIO
+      message: 'Está vazio' //MENSAGEM SE ESTIVER VAZIO
+    },
+    min: {
+      value: 2, //DEVE TER NO MINIMO 2 OCORENCIAS NO ARRAY
+      message: 'Não tem duas ocorrencias no array'
+    },
+    max: {
+      value: 4, //DEVE TER NO MAXIMO 4 OCORENCIAS NO ARRAY
+      message: 'tem mais que 4 ocorrencias no array'
+    }
+  }
+}
+</pre>
+      </div>
+      <div class="col-sm-6">
+<pre>
+Object exemplo: $scope.item = {}
+{
+  ngModel : 'item', //NOME DA VARIAVEL NO SCOPE
+  options : {
+    type: 'object', //ng model deve ser um array
+    message: 'Não é um Object',
+    empty: {
+      value: false, //NAO PODE SER VAZIO
+      message: 'Está vazio' //MENSAGEM SE ESTIVER VAZIO
+    },
+    fields: [
+      {
+        name: 'nome', //NOME DO ATRIBUTO A SER VALIDADO NO OBJETO
+        equal: { // EMPTY, EQUAL, CONTAINS, MAX, MIN
+          value: 'MATEUS MIRANDA',
+          message: 'CASO NÃO OBDECER '
+        }
+      }
+    ]
+  }
+}
+</pre>
+      </div>
+    </div>
+
   </div>
 
 
@@ -57,7 +104,7 @@
     <script src="../node_modules/gumga-many-to-one-ng/dist/gumga-many-to-one.min.js"></script>
     <script src="../node_modules/gumga-rest-ng/dist/gumga-rest.min.js"></script>
     <script src="../node_modules/gumga-controller-ng/dist/gumga-controller.min.js"></script>
-    <script src="../dist/gumga-form.min.js"></script>
+    <script src="../dist/gumga-form.js"></script>
 
     <script>
     angular.module('yourApp', ['gumga.form','gumga.manytoone','gumga.controller','gumga.rest', 'ui.bootstrap'])
@@ -70,29 +117,32 @@
           gumgaController.createRestMethods($scope, PessoaService, 'pessoas');
           $scope.pessoas.methods.get();
 
-          $scope.selecionados = [{}];
+          $scope.selecionados = [
+          ]
+
+          //IGUAL
+          //DIFERENTE
+          //CONTEM
+          //MINIMO
+          //MAXIMO
 
           $scope.configManyToOne = {
-            ngModel : 'pessoa',
+            ngModel : 'selecionado',
             options : {
-              message: 'O campo cliente deve ter um objeto',
-              type: 'object'
-            }
-          }
-
-          $scope.configManyToMany = {
-            ngModel : 'selecionados',
-            options : {
-              type: 'array',
-              message : 'Deve ter array',
-              min : {
-                value: 1,
-                message: 'Tem que ter ao menos um.'
+              type: 'object',
+              empty: {
+                value: false,
+                message: 'Está vazio'
               },
-              max : {
-                value: 2,
-                message: 'Só é permitido selecionar 2 objetos.'
-              }
+              fields: [
+                {
+                  name: 'nome',
+                  regex: {
+                    value: 'WILLIAN',
+                    message: 'Regex teste'
+                  }
+                }
+              ]
             }
           }
 
