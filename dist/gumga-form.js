@@ -872,14 +872,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             field = attrs.field,
             ngModel = controllers[0],
             gumgaForm = controllers[1];
-        (function () {
-          var isValid = attrs.gumgaRequired.length == 0 ? !!(ngModel.$viewValue && ngModel.$viewValue.length > 0) : !!$interpolate(attrs.gumgaRequired)(scope);
-          gumgaForm.changeStateOfInput(name, error, isValid, null, field);
-          ngModel.$setValidity(error, isValid);
-        })();
 
         function validateRequired(inputValue) {
-          var isValid = attrs.gumgaRequired.length == 0 ? !!(inputValue && inputValue.length > 0) : !!$interpolate(attrs.gumgaRequired)(scope);
+          var isValid = inputValue != NaN && inputValue != undefined && inputValue != null && inputValue !== '';
+
           gumgaForm.changeStateOfInput(name, error, isValid, null, field);
           ngModel.$setValidity(error, isValid);
           return inputValue;
@@ -890,6 +886,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
         attrs.$observe('gumgaRequired', function (x) {
           return validateRequired(ngModel.$viewValue);
         });
+        validateRequired(ngModel.$viewValue);
       }
     };
   }

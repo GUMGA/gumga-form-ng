@@ -14,7 +14,9 @@
   <div class="container">
 
     <form name="myForm" gumga-form>
-
+      <label>Numero</label>
+      <input type="number" name="idade" class="form-control" gumga-required ng-model="idade">
+      <br>
       <label>Cliente</label>
       <gumga-many-to-one
         value="selecionado"
@@ -117,6 +119,8 @@ Object exemplo: $scope.item = {}
           gumgaController.createRestMethods($scope, PessoaService, 'pessoas');
           $scope.pessoas.methods.get();
 
+          $scope.idade = 0
+
           $scope.selecionados = [
           ]
 
@@ -135,13 +139,13 @@ Object exemplo: $scope.item = {}
                 message: 'Está vazio'
               },
               fields: [
-                {
-                  name: 'nome',
-                  regex: {
-                    value: 'WILLIAN',
-                    message: 'Regex teste'
-                  }
-                }
+                // {
+                //   name: 'nome',
+                //   regex: {
+                //     value: 'WILLIAN',
+                //     message: 'Regex teste'
+                //   }
+                // }
               ]
             }
           }
