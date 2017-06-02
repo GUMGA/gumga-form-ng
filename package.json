@@ -36,6 +36,7 @@
     "build": "npm-run-all -p build:sequential",
     "build:sequential": "npm-run-all -s -c build:concat build:minify",
     "build:concat": "browserify ./src/index.js -o ./dist/gumga-form.js -t [ babelify ]",
+    "doc": "node ./docs/create-doc.js",
     "build:minify": "uglifyjs ./dist/gumga-form.js -o ./dist/gumga-form.min.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

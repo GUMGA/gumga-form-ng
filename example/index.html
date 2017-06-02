@@ -131,9 +131,9 @@ Object exemplo: $scope.item = {}
           //MAXIMO
 
           $scope.configManyToOne = {
-            ngModel : 'selecionado',
+            ngModel : 'selecionados',
             options : {
-              type: 'object',
+              type: 'array',
               empty: {
                 value: false,
                 message: 'Está vazio'
@@ -149,6 +149,7 @@ Object exemplo: $scope.item = {}
               ]
             }
           }
+
 
           $scope.getSearch = function(param){
               return $q(function(resolve){
