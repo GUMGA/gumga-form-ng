@@ -1,5 +1,77 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-'use strict';
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// identity function for calling harmony imports with the correct context
+/******/ 	__webpack_require__.i = function(value) { return value; };
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/dist/";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 16);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
 	'use strict';
@@ -30,8 +102,12 @@
 	angular.module('gumga.form.error', []).directive('gumgaError', Error);
 })();
 
-},{}],2:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -94,8 +170,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.errors', ['ui.bootstrap']).directive('gumgaErrors', Errors);
 })();
 
-},{}],3:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
   'use strict';
@@ -144,8 +224,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   angular.module('gumga.form.class', []).directive('gumgaFormClass', FormClass);
 })();
 
-},{}],4:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 3 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
 	'use strict';
@@ -185,6 +269,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				ctrl.getFormName = getFormName;
 				ctrl.setFormValidity = setFormValidity;
 				ctrl.updateFormErrors = updateFormErrors;
+				ctrl.deleteErrosByInputName = deleteErrosByInputName;
 
 				function changeInputMessage(inputName, obj) {
 					if (!inputName) throw 'É necessário passar o nome do input [changeInputMessage(inputName, messages)]';
@@ -251,6 +336,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					return this;
 				}
 
+				function deleteErrosByInputName(inputName) {
+					delete ctrl.formErrors[inputName];
+				}
+
 				function setFormValidity() {
 					var _this = this;
 
@@ -279,34 +368,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.form', []).directive('gumgaForm', Form);
 })();
 
-},{}],5:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
 
-(function () {
-  'use strict';
+"use strict";
 
-  require('./form/form.js');
-  require('./form-class/form-class.js');
-  require('./errors/errors.js');
-  require('./error/error.js');
-  require('./max/date.js');
-  require('./max/length.js');
-  require('./max/number.js');
-  require('./min/date.js');
-  require('./min/length.js');
-  require('./min/number.js');
-  require('./pattern/pattern.js');
-  require('./range/date.js');
-  require('./range/number.js');
-  require('./required/required.js');
-  require('./validate/type.js');
-  require('./model-error/model-error.js');
-
-  angular.module('gumga.form', ['gumga.form.form', 'gumga.form.class', 'gumga.form.errors', 'gumga.form.error', 'gumga.form.max.date', 'gumga.form.max.length', 'gumga.form.max.number', 'gumga.form.min.date', 'gumga.form.min.length', 'gumga.form.min.number', 'gumga.form.pattern', 'gumga.form.range.date', 'gumga.form.range.number', 'gumga.form.required', 'gumga.form.validate.type', 'gumga.form.modelerror']);
-})();
-
-},{"./error/error.js":1,"./errors/errors.js":2,"./form-class/form-class.js":3,"./form/form.js":4,"./max/date.js":6,"./max/length.js":7,"./max/number.js":8,"./min/date.js":9,"./min/length.js":10,"./min/number.js":11,"./model-error/model-error.js":12,"./pattern/pattern.js":13,"./range/date.js":14,"./range/number.js":15,"./required/required.js":16,"./validate/type.js":17}],6:[function(require,module,exports){
-'use strict';
 
 (function () {
 	'use strict';
@@ -352,8 +419,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.max.date', []).directive('gumgaMaxDate', MaxDate);
 })();
 
-},{}],7:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
   'use strict';
@@ -392,8 +463,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   angular.module('gumga.form.max.length', []).directive('gumgaMaxLength', MaxLength);
 })();
 
-},{}],8:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 6 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
 	'use strict';
@@ -435,8 +510,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.max.number', []).directive('gumgaMaxNumber', MaxNumber);
 })();
 
-},{}],9:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 7 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
 	'use strict';
@@ -482,8 +561,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.min.date', []).directive('gumgaMinDate', MinDate);
 })();
 
-},{}],10:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
   'use strict';
@@ -522,8 +605,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   angular.module('gumga.form.min.length', []).directive('gumgaMinLength', MinLength);
 })();
 
-},{}],11:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 9 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
 	'use strict';
@@ -563,8 +650,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.min.number', []).directive('gumgaMinNumber', MinNumber);
 })();
 
-},{}],12:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -607,6 +698,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 						validateIsObject(value, config, 'type');
 					}
 				};
+
+				scope.$on('$destroy', function () {
+					gumgaCtrl.deleteErrosByInputName(configuration.ngModel);
+				});
 
 				//VALIDA QUANDO O TYPE FOR ARRAY
 				var validateArray = function validateArray(value, config) {
@@ -726,8 +821,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.modelerror', []).directive('gumgaModelError', ModelError);
 })();
 
-},{}],13:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
 	'use strict';
@@ -766,8 +865,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.pattern', []).directive('gumgaPattern', Pattern);
 })();
 
-},{}],14:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 12 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
 		'use strict';
@@ -813,8 +916,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 		angular.module('gumga.form.range.date', []).directive('gumgaRangeDate', RangeDate);
 })();
 
-},{}],15:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 13 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
 	'use strict';
@@ -855,8 +962,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 	angular.module('gumga.form.range.number', []).directive('gumgaRangeNumber', RangeNumber);
 })();
 
-},{}],16:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 14 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
   'use strict';
@@ -872,6 +983,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
             field = attrs.field,
             ngModel = controllers[0],
             gumgaForm = controllers[1];
+
+        scope.$on('$destroy', function () {
+          validateRequired(true);
+        });
 
         function validateRequired(inputValue) {
           var isValid = inputValue != NaN && inputValue != undefined && inputValue != null && inputValue !== '';
@@ -893,8 +1008,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   angular.module('gumga.form.required', []).directive('gumgaRequired', Required);
 })();
 
-},{}],17:[function(require,module,exports){
-'use strict';
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 (function () {
   'use strict';
@@ -955,4 +1074,35 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
   angular.module('gumga.form.validate.type', []).directive('gumgaValidateType', ValidateType);
 })();
 
-},{}]},{},[5]);
+/***/ }),
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+(function () {
+  'use strict';
+
+  __webpack_require__(3);
+  __webpack_require__(2);
+  __webpack_require__(1);
+  __webpack_require__(0);
+  __webpack_require__(4);
+  __webpack_require__(5);
+  __webpack_require__(6);
+  __webpack_require__(7);
+  __webpack_require__(8);
+  __webpack_require__(9);
+  __webpack_require__(11);
+  __webpack_require__(12);
+  __webpack_require__(13);
+  __webpack_require__(14);
+  __webpack_require__(15);
+  __webpack_require__(10);
+
+  angular.module('gumga.form', ['gumga.form.form', 'gumga.form.class', 'gumga.form.errors', 'gumga.form.error', 'gumga.form.max.date', 'gumga.form.max.length', 'gumga.form.max.number', 'gumga.form.min.date', 'gumga.form.min.length', 'gumga.form.min.number', 'gumga.form.pattern', 'gumga.form.range.date', 'gumga.form.range.number', 'gumga.form.required', 'gumga.form.validate.type', 'gumga.form.modelerror']);
+})();
+
+/***/ })
+/******/ ]);

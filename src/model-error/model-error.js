@@ -38,6 +38,10 @@
 						}
 				}
 
+				scope.$on('$destroy', () => {
+					gumgaCtrl.deleteErrosByInputName(configuration.ngModel);
+				})
+
 				//VALIDA QUANDO O TYPE FOR ARRAY
 				const validateArray = (value,config) => {
 						validateEmpty(value, config.empty, 'empty');

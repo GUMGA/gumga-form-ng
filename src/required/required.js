@@ -13,6 +13,10 @@
           ngModel = controllers[0],
           gumgaForm = controllers[1];
 
+        scope.$on('$destroy', () => {
+          validateRequired(true);
+        })
+
         function validateRequired(inputValue) {
           let isValid =    inputValue  != NaN
                         && inputValue  != undefined
