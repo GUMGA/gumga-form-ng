@@ -75,7 +75,7 @@ angular.module('yourApp', ['gumga.form']);
                 <div role="tabpanel" class="tab-pane active" id="html">
                   <pre><code  class="prettyprint" ng-non-bindable>&lt;form name="Example" gumga-form&gt;
   &lt;label&gt;Nome:&lt;/label&gt;
-  &lt;input type="text" name="name" field="nome do cliente" class="form-control" ng-model="entity.name" gumga-error gumga-required&gt;
+  &lt;input type="text" name="name" field="nome do cliente" class="form-control" ng-model="entity.name" gumga-error="ctrl.validate(entity.name)" gumga-required&gt;
 &lt;/form&gt;
 </code></pre>
                 </div>
