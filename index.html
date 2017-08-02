@@ -14,27 +14,25 @@
   <div class="container">
 
     <form name="myForm" gumga-form>
-      <div class="form-group" ng-repeat="func in funcionarios">
-        <label>Nome</label><br/>
-        <input type="text" ng-model="func.nome" field="Nome do funcionario"
-               name="{{'nome'+$index}}" gumga-error gumga-required class="form-control">
-        <label>Idade</label><br/>
-        <input type="number"
-               ng-model="func.idade"
-               field="Idade"
-               name="idade"
-               gumga-error="validateIdade(func)"
-               gumga-required
-               class="form-control">
-      </div>
+
+      <campos></campos>
 
 
       <gumga-errors placement="right"
+                    errors="teste"
                     icon="glyphicon glyphicon-info-sign"
                     label="Campos inválidos"
                     title="Campos inválidos">
       </gumga-errors>
 
+      <br>
+      <br>
+      <br>
+
+      {{myForm.$error}}
+
+    <br>
+    <br>
     <br>
 
     <div class="row">
@@ -104,7 +102,14 @@ Object exemplo: $scope.item = {}
     <script>
     angular.module('yourApp', ['gumga.form','gumga.manytoone','gumga.controller','gumga.rest', 'ui.bootstrap'])
       .config(function ($httpProvider) {
-        $httpProvider.defaults.headers.common['gumgaToken'] = 'tokenkids'
+        $httpProvider.defaults.headers.common['gumgaToken'] = 'homologacaokids'
+      })
+      .directive('campos', function(){
+        return {
+          restrict: 'E',
+          link: function(){},
+          templateUrl: 'form.html'
+        }
       })
       .controller('filterCtrl', ['gumgaController', 'GumgaRest','$scope',
         function (gumgaController, GumgaRest, $scope) {

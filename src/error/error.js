@@ -7,11 +7,13 @@
 		return {
 			restrict: 'A',
 			scope: false,
-			require: '^?gumgaForm',
-			link: (scope, elm, attrs, gumgaCtrl) => {
+			require: ['ngModel', '^?gumgaForm'],
+			link: (scope, elm, attrs, controllers) => {
 					scope[`${attrs.name.concat('errors')}`] = {};
 				let nameOfInput = attrs.name,
 					translationField = attrs.translationField,
+					ngModel = controllers[0],
+					gumgaCtrl = controllers[1],
 					template = `<ol class="list-errors text-danger"><li ng-repeat="(key, value) in ${nameOfInput.concat('errors')}" ><label>{{ value }}</li></ol>`,
 					err = scope[`${nameOfInput.concat('errors')}`];
 
@@ -25,6 +27,7 @@
 						}
 						var index = scope.$index || '';
 						gumgaCtrl.updateFormErrors(attrs.name + index, 'gumgaerror', !result.error, result.message);
+						ngModel.$setValidity(attrs.name + index, !result.error);
 						$rootScope.$broadcast('form-changed');
 					}
 				})
