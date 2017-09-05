@@ -7,7 +7,11 @@
          ng-model="func.idade"
          field="Idade"
          name="idade"
-         gumga-error="validateIdade(func)"
+         step="0.01"
+         gumga-max-number="20"
+         gumga-error
+         gumga-number
          gumga-required
          class="form-control">
+         {{func.idade}}
 </div>

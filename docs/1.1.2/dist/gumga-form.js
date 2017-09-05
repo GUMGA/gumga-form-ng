@@ -82,13 +82,11 @@
 		return {
 			restrict: 'A',
 			scope: false,
-			require: ['ngModel', '^?gumgaForm'],
-			link: function link(scope, elm, attrs, controllers) {
+			require: '^?gumgaForm',
+			link: function link(scope, elm, attrs, gumgaCtrl) {
 				scope['' + attrs.name.concat('errors')] = {};
 				var nameOfInput = attrs.name,
 				    translationField = attrs.translationField,
-				    ngModel = controllers[0],
-				    gumgaCtrl = controllers[1],
 				    template = '<ol class="list-errors text-danger"><li ng-repeat="(key, value) in ' + nameOfInput.concat('errors') + '" ><label>{{ value }}</li></ol>',
 				    err = scope['' + nameOfInput.concat('errors')];
 
@@ -102,7 +100,6 @@
 						}
 						var index = scope.$index || '';
 						gumgaCtrl.updateFormErrors(attrs.name + index, 'gumgaerror', !result.error, result.message);
-						ngModel.$setValidity(attrs.name + index, !result.error);
 						$rootScope.$broadcast('form-changed');
 					}
 				});
@@ -502,7 +499,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			link: function link(scope, elm, attrs, controllers) {
 				if (attrs.type != 'number') throw 'Esta diretiva suporta apenas inputs do tipo number';
 				if (!attrs.gumgaMaxNumber) throw "O valor da diretiva gumga-max-number não foi informado.";
-
 				var ngModelController = controllers[0],
 				    gumgaFormController = controllers[1],
 				    error = 'maxnumber',
@@ -510,11 +506,9 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				    field = attrs.field,
 				    limitValue = parseInt(attrs.gumgaMaxNumber);
 
-				elm.attr('max', limitValue);
-
 				function validateMaxNumber(inputValue) {
 					if (inputValue) {
-						var isValid = parseFloat(inputValue) <= limitValue;
+						var isValid = parseInt(inputValue) <= limitValue;
 						ngModelController.$setValidity(error, isValid);
 						gumgaFormController.changeStateOfInput(name, error, isValid, limitValue, field);
 					}
@@ -654,17 +648,14 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				    field = attrs.field,
 				    limitValue = parseInt(attrs.gumgaMinNumber);
 
-				elm.attr('min', limitValue);
-
 				function validateMinNumber(inputValue) {
 					if (inputValue) {
-						var isValid = parseFloat(inputValue) >= limitValue;
+						var isValid = parseInt(inputValue) >= limitValue;
 						ngModelController.$setValidity(error, isValid);
 						gumgaFormController.changeStateOfInput(name, error, isValid, limitValue, field);
 					}
 					return inputValue;
 				}
-
 				ngModelController.$parsers.unshift(validateMinNumber);
 				ngModelController.$formatters.push(validateMinNumber);
 				attrs.$observe('gumgaMinNumber', function (x) {

@@ -26,6 +26,7 @@
 				ngModelController.$parsers.unshift(validatePattern);
 				ngModelController.$formatters.push(validatePattern);
 				attrs.$observe('gumgaPattern', x => validatePattern(ngModelController.$viewValue));
+
 			}
 		}
 	}

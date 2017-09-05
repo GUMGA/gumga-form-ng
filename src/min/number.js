@@ -17,17 +17,21 @@
 					field = attrs.field,
 					limitValue = parseInt(attrs.gumgaMinNumber);
 
+				elm.attr('min', limitValue);
+
 				function validateMinNumber(inputValue) {
 					if (inputValue) {
-						let isValid = parseInt(inputValue) >= limitValue;
+						let isValid = parseFloat(inputValue) >= limitValue;
 						ngModelController.$setValidity(error, isValid);
 						gumgaFormController.changeStateOfInput(name, error, isValid, limitValue, field);
 					}
 					return inputValue;
 				}
+
 				ngModelController.$parsers.unshift(validateMinNumber);
 				ngModelController.$formatters.push(validateMinNumber);
 				attrs.$observe('gumgaMinNumber', x => validateMinNumber(ngModelController.$viewValue));
+
 			}
 		}
 	}
