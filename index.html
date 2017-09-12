@@ -29,63 +29,9 @@
       <br>
       <br>
 
-      {{myForm.$error}}
+      <!-- {{myForm.$error}} -->
+    </form>
 
-    <br>
-    <br>
-    <br>
-
-    <div class="row">
-      <div class="col-sm-6">
-<pre>
-Arrar exemplo: $scope.items = []
-{
-  ngModel : 'items', //NOME DA VARIAVEL NO SCOPE
-  options : {
-    type: 'array', //ng model deve ser um array
-    message: 'Não é um array',
-    empty: {
-      value: false, //NAO PODE SER VAZIO
-      message: 'Está vazio' //MENSAGEM SE ESTIVER VAZIO
-    },
-    min: {
-      value: 2, //DEVE TER NO MINIMO 2 OCORENCIAS NO ARRAY
-      message: 'Não tem duas ocorrencias no array'
-    },
-    max: {
-      value: 4, //DEVE TER NO MAXIMO 4 OCORENCIAS NO ARRAY
-      message: 'tem mais que 4 ocorrencias no array'
-    }
-  }
-}
-</pre>
-      </div>
-      <div class="col-sm-6">
-<pre>
-Object exemplo: $scope.item = {}
-{
-  ngModel : 'item', //NOME DA VARIAVEL NO SCOPE
-  options : {
-    type: 'object', //ng model deve ser um array
-    message: 'Não é um Object',
-    empty: {
-      value: false, //NAO PODE SER VAZIO
-      message: 'Está vazio' //MENSAGEM SE ESTIVER VAZIO
-    },
-    fields: [
-      {
-        name: 'nome', //NOME DO ATRIBUTO A SER VALIDADO NO OBJETO
-        equal: { // EMPTY, EQUAL, CONTAINS, MAX, MIN
-          value: 'MATEUS MIRANDA',
-          message: 'CASO NÃO OBDECER '
-        }
-      }
-    ]
-  }
-}
-</pre>
-      </div>
-    </div>
 
   </div>
 
@@ -111,33 +57,43 @@ Object exemplo: $scope.item = {}
           templateUrl: 'form.html'
         }
       })
-      .controller('filterCtrl', ['gumgaController', 'GumgaRest','$scope',
-        function (gumgaController, GumgaRest, $scope) {
+      .controller('filterCtrl', ['gumgaController', 'GumgaRest','$scope', '$gumgaModel', '$timeout',
+        function (gumgaController, GumgaRest, $scope, $gumgaModel, $timeout) {
           var PessoaService = new GumgaRest('http://192.168.25.250/gileadeweb-api/api/pessoacadastro');
           gumgaController.createRestMethods($scope, PessoaService, 'pessoas');
-          $scope.pessoas.methods.get();
 
           $scope.idade = 0
 
           $scope.selecionados = [
           ]
 
-          $scope.funcionarios = [
-            {
-              nome: undefined,
-              idade: 18
-            }
-            // {
-            //   nome: undefined,
-            //   idade: 25
-            // }
-          ]
+
+          // $gumgaModel
+          //   .$watch($scope, 'funcionarios')
+
+
+          $scope.funcionarios = {
+            nome: undefined,
+            idade: 2,
+            enderecos: [
+              {
+                numero: null
+              }
+            ]
+          }
+
 
           //IGUAL
           //DIFERENTE
           //CONTEM
           //MINIMO
           //MAXIMO
+
+
+          $gumgaModel
+              .$watch($scope, 'funcionario.enderecos')
+              .condition('numero == null', 'Tem que colocar numero porra');
+
 
           $scope.configManyToOne = {
             ngModel : 'selecionados',

@@ -1,17 +1,15 @@
 <div class="form-group" ng-repeat="func in funcionarios">
   <label>Nome</label><br/>
   <input type="text" ng-model="func.nome" field="Nome do funcionario"
-         name="{{'nome'+$index}}" gumga-error gumga-required class="form-control">
+         name="{{'nome'+$index}}" class="form-control">
   <label>Idade</label><br/>
   <input type="number"
          ng-model="func.idade"
          field="Idade"
          name="idade"
-         step="0.01"
-         gumga-max-number="20"
-         gumga-error
-         gumga-number
-         gumga-required
          class="form-control">
-         {{func.idade}}
 </div>
+
+
+<!-- <button type="button" name="button" ng-click="teste()">stop/start</button> --> <br><br>
+<button type="button" name="button" ng-click="funcionarios.push({})">add</button>

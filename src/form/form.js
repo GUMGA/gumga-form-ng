@@ -9,8 +9,10 @@
 			priority: 501,
 			require: 'form',
 			transclude: false,
-			controller: ['$scope','$element','$attrs','$timeout', function($scope, $element, $attrs, $timeout) {
+			controller: ['$scope','$element','$attrs','$timeout', '$rootScope', function($scope, $element, $attrs, $timeout, $rootScope) {
 				let ctrl = this;
+
+				window.gumgaForms = $rootScope.gumgaForms || [];
 
 				const defaultMessages = {
 					maxdate: 'A data especificada no campo {0} não deve ultrapassar o limite de: {1}.',
@@ -37,6 +39,18 @@
 				ctrl.updateFormErrors 	= updateFormErrors;
 				ctrl.deleteErrosByInputName 	= deleteErrosByInputName;
 
+				window.gumgaForms.push({
+					element: $element,
+					scope: ctrl
+				});
+
+				$scope.$on('$destroy', () => {
+					window.gumgaForms = $rootScope.gumgaForms.filter(form => {
+						return form.$scope.$id != $scope.$id;
+					});
+				})
+
+				ctrl.updateErrorsModel = () => $scope.$broadcast('form-changed');
 
 				function changeInputMessage(inputName, obj){
 					if(!inputName) throw 'É necessário passar o nome do input [changeInputMessage(inputName, messages)]';

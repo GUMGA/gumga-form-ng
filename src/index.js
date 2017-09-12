@@ -17,6 +17,7 @@
   require ('./required/required.js');
   require ('./validate/type.js');
   require ('./model-error/model-error.js');
+  require ('./model-error/model-error.provider.js');
 
 
   angular.module('gumga.form', [
@@ -35,6 +36,7 @@
     'gumga.form.range.number',
     'gumga.form.required',
     'gumga.form.validate.type',
-    'gumga.form.modelerror'
+    'gumga.form.modelerror',
+    'gumga.form.modelerror.provider'
   ])
 })();
