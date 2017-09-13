@@ -266,7 +266,12 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 			controller: ['$scope', '$element', '$attrs', '$timeout', '$rootScope', function ($scope, $element, $attrs, $timeout, $rootScope) {
 				var ctrl = this;
 
-				window.gumgaForms = $rootScope.gumgaForms || [];
+				window.gumgaForms = window.gumgaForms || [];
+
+				window.gumgaForms.push({
+					element: $element,
+					scope: ctrl
+				});
 
 				var defaultMessages = {
 					maxdate: 'A data especificada no campo {0} não deve ultrapassar o limite de: {1}.',
@@ -292,11 +297,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				ctrl.setFormValidity = setFormValidity;
 				ctrl.updateFormErrors = updateFormErrors;
 				ctrl.deleteErrosByInputName = deleteErrosByInputName;
-
-				window.gumgaForms.push({
-					element: $element,
-					scope: ctrl
-				});
 
 				$scope.$on('$destroy', function () {
 					window.gumgaForms = $rootScope.gumgaForms.filter(function (form) {
