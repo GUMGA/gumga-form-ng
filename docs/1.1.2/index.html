@@ -35,6 +35,9 @@
         <div class="col-xs-4">
           <h2>Descrição</h2>
           <p>A directive gumgaForm é utilizada em conjunto com as directives de validação de input. Ela contém funções que serão usadas para manipular o formulário. Ela expõe no $scope um objeto GumgaForm para agrupar as funções em um lugar só.Você pode encontrar um exemplo de código de todos componentes do form <a style="color: blue;" href="http://embed.plnkr.co/AcjqcgvgGhdJqDh72eHA" target="_blank">clicando aqui.</a> </p>
+          <br>
+          <p class="text-primary"><b>Novidades: </b>Foi criado o $gumgaModel que te ajuda a validar seus formulários.</p>
+
         </div>
         <div class="col-xs-8">
           <h3>Instalação</h3>
@@ -52,6 +55,44 @@ angular.module('yourApp', ['gumga.form']);
         </div>
       </div>
 
+      <h1>Gumga Model</h1>
+      <!-- START GUMGA MODEL -->
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <b>Gumga Error - </b> O componente $gumgaModel serve para validar seus formulários, possibilitando adicionar mensagens ao gumga erros.
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-xs-4">
+              <form name="ExampleGumgaModel" gumga-form>
+                <label>Nome:</label>
+                <input type="text" name="name" field="nome do cliente" class="form-control" ng-model="ctrl.entity.nome"> <br><br>
+                <gumga-errors placement="right" icon="glyphicon glyphicon-info-sign" label="Campos inválidos" title="Campos inválidos"></gumga-errors>
+              </form>
+            </div>
+            <div class="col-xs-8">
+              <ul class="nav nav-tabs" role="tablist">
+                <!-- <li role="presentation" class="active"><a href="#html" aria-controls="home" role="tab" data-toggle="tab">HTML</a></li> -->
+                <li role="presentation" class="active"><a href="#js" aria-controls="profile" role="tab" data-toggle="tab">JavaScript</a></li>
+              </ul>
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="js">
+                  <pre><code class="prettyprint" ng-non-bindable>angular.module('app', ['gumga.form'])
+  .controller('ctrl', function($scope, $gumgaModel){
+
+    $gumgaModel.$watch($scope, 'ctrl.entity', angular.element('form[name="ExampleGumgaModel"]'))
+               .condition("nome == null || nome == ''", "Preencha um nome.")
+               .condition("nome.toLowerCase().startsWith('mat')", "Seu nome não pode ser Mateus.");
+
+  })</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END GUMGA MODEL -->
+
       <h1>Gumga Error</h1>
       <!-- START ERROR -->
       <div class="panel panel-default">
@@ -63,7 +104,7 @@ angular.module('yourApp', ['gumga.form']);
             <div class="col-xs-6">
               <form name="Example" gumga-form>
                 <label>Nome:</label>
-                <input type="text" name="name" field="nome do cliente" class="form-control" ng-model="ctrl.entity.name" gumga-error="ctrl.validate(ctrl.entity.name)" gumga-required>
+                <input type="text" name="name" field="nome do cliente" class="form-control" ng-model="ctrl.entity.namee">
               </form>
             </div>
             <div class="col-xs-6">
@@ -558,7 +599,8 @@ angular.module('yourApp', ['gumga.form']);
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"></script>
-    <script src="dist/gumga-form.min.js"></script>
+    <!-- <script src="dist/gumga-form.js"></script> -->
+    <script src="../../dist/gumga-form.js"></script>
 
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="https://gumga.github.io/components/app.js"></script>

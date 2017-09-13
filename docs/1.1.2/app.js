@@ -1,5 +1,5 @@
 angular.module('app', ['gumga.form'])
-  .controller('Ctrl', function ($http) {
+  .controller('Ctrl', function ($http, $gumgaModel, $scope, $timeout) {
     var ctrl = this;
     ctrl.entity = ctrl.entity || { name: "" };
 
@@ -9,5 +9,11 @@ angular.module('app', ['gumga.form'])
         message: "Informe um nome com mais de 5 letras"
       }
     }
+
+    $gumgaModel.$watch($scope, 'ctrl.entity', angular.element('form[name="ExampleGumgaModel"]'))
+               .condition("nome == null || nome == ''", "Preencha um nome.")
+               .condition("nome.toLowerCase().startsWith('mat')", "Seu nome não pode ser Mateus.");
+
+
 
   })

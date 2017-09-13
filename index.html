@@ -68,60 +68,12 @@
           ]
 
 
-          // $gumgaModel
-          //   .$watch($scope, 'funcionarios')
+          $scope.funcionarios = [{  }];
 
-
-          $scope.funcionarios = {
-            nome: undefined,
-            idade: 2,
-            enderecos: [
-              {
-                numero: null
-              }
-            ]
-          }
-
-
-          //IGUAL
-          //DIFERENTE
-          //CONTEM
-          //MINIMO
-          //MAXIMO
-
-
-          $gumgaModel
-              .$watch($scope, 'funcionario.enderecos')
-              .condition('numero == null', 'Tem que colocar numero porra');
-
-
-          $scope.configManyToOne = {
-            ngModel : 'selecionados',
-            options : {
-              type: 'array',
-              empty: {
-                value: false,
-                message: 'Está vazio'
-              },
-              fields: [
-                // {
-                //   name: 'nome',
-                //   regex: {
-                //     value: 'WILLIAN',
-                //     message: 'Regex teste'
-                //   }
-                // }
-              ]
-            }
-          }
-
-          $scope.validateIdade = function(func){
-            return {
-              error: func.idade < 20,
-              message: 'A idade é menor que 20'
-            }
-          }
-
+          // var gumgaModelInstance = $gumgaModel.$watch($scope, 'funcionarios[0].nome')
+          //   .condition('nome == null', 'Preenche o nome vie')
+            // .condition('funcionarios[3].nome.startsWith(\'Mat\')', 'Erro nao pode ser mateus')
+            // .condition('idade ', 'Erro nao pode ser mateus')
 
           $scope.getSearch = function(param){
               return $q(function(resolve){

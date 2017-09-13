@@ -58,6 +58,8 @@ let Provider = () => {
         return this;
       }
 
+      this.removeAllConditions = () => conditions = [];
+
   }
 
   const $watch = (scope, model, elm) => {
