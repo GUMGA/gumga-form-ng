@@ -165,10 +165,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				}
 
 				scope.$on('form-changed', function (ev, data) {
-					var newErros = flatObject(gumgaFormController.getFormErrors(), {}, 'main');
-					if (!angular.equals(newErros, scope.errors)) {
-						scope.errors = newErros;
-					}
+					scope.errors = flatObject(gumgaFormController.getFormErrors(), {}, 'main');
 					scope.hasError = hasError();
 				});
 

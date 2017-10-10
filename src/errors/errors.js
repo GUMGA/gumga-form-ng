@@ -31,7 +31,10 @@
 				}
 
 				scope.$on('form-changed', (ev, data) => {
-					scope.errors = flatObject(gumgaFormController.getFormErrors(), {}, 'main');
+					let newErros = flatObject(gumgaFormController.getFormErrors(), {}, 'main');
+					if(!angular.equals(newErros, scope.errors)){
+						scope.errors = newErros;
+					}
 					scope.hasError = hasError();
 				})
 
