@@ -165,10 +165,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				}
 
 				scope.$on('form-changed', function (ev, data) {
-					var newErros = flatObject(gumgaFormController.getFormErrors(), {}, 'main');
-					if (!angular.equals(newErros, scope.errors)) {
-						scope.errors = newErros;
-					}
+					scope.errors = flatObject(gumgaFormController.getFormErrors(), {}, 'main');
 					scope.hasError = hasError();
 				});
 
@@ -325,7 +322,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					return this;
 				}
 
-				function changeStateOfInput(inputName, validationType, inputIsValid, value, field, customMessage) {
+				function changeStateOfInput(inputName, validationType, inputIsValid, value, field) {
 					field = field || inputName;
 					if (!inputName) throw 'É necessário passar um valor válido como primeiro parâmetro [changeStateOfInput(inputName, validationType, inputIsValid, value)]';
 					if (!validationType) throw 'É necessário passar um valor válido como segundo parâmetro [changeStateOfInput(inputName, validationType, inputIsValid, value)]';
@@ -337,10 +334,10 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 					    objectSentToGumgaError = void 0;
 
 					objectSentToGumgaError = !inputIsValid ? { message: message, validationType: validationType } : { validationType: validationType };
-					this.updateFormErrors(inputName, validationType, inputIsValid, customMessage || message);
+					this.updateFormErrors(inputName, validationType, inputIsValid, message);
 
 					$scope.$broadcast('form-changed');
-					if (customMessage) objectSentToGumgaError.message = customMessage;
+
 					$scope.$broadcast(inputName + '-' + (inputIsValid ? '' : 'in') + 'valid', objectSentToGumgaError);
 
 					return this;
@@ -1192,8 +1189,6 @@ angular.module('gumga.form.modelerror.provider', []).provider('$gumgaModel', Pro
             type = 'hora';break;
           case 'week':
             type = 'semana';break;
-          case 'cpf':
-            type = 'CPF';break;
           case 'month':
             type = 'mês';break;
           case 'number':
@@ -1205,19 +1200,13 @@ angular.module('gumga.form.modelerror.provider', []).provider('$gumgaModel', Pro
           default:
             type = 'unknown';
         }
-        if (type == 'unknown') throw 'Esta diretiva suporta apenas inputs dos tipos date, datetime-local, time, week, month, number, url, cpf e email.';
+        if (type == 'unknown') throw 'Esta diretiva suporta apenas inputs dos tipos date, datetime-local, time, week, month, number, url e email.';
 
         function validateType(inputValue) {
-          if (type == 'CPF' && inputValue) {
-            var isValid = window.GumgaCPF.isValid(inputValue);
-            ngModel.$setValidity(error, isValid);
-            gumgaForm.changeStateOfInput(name, error, isValid, type, field, 'Por favor, informe um CPF v\xE1lido.');
-            return inputValue;
-          }
           if (inputValue) {
-            var _isValid = elm[0].validity.valid;
-            ngModel.$setValidity(error, _isValid);
-            gumgaForm.changeStateOfInput(name, error, _isValid, type, field);
+            var isValid = elm[0].validity.valid;
+            ngModel.$setValidity(error, isValid);
+            gumgaForm.changeStateOfInput(name, error, isValid, type, field);
           }
           return inputValue;
         };
@@ -1263,37 +1252,6 @@ angular.module('gumga.form.modelerror.provider', []).provider('$gumgaModel', Pro
 
   angular.module('gumga.form', ['gumga.form.form', 'gumga.form.class', 'gumga.form.errors', 'gumga.form.error', 'gumga.form.max.date', 'gumga.form.max.length', 'gumga.form.max.number', 'gumga.form.min.date', 'gumga.form.min.length', 'gumga.form.min.number', 'gumga.form.pattern', 'gumga.form.range.date', 'gumga.form.range.number', 'gumga.form.required', 'gumga.form.validate.type', 'gumga.form.modelerror', 'gumga.form.modelerror.provider']);
 })();
-
-/*!
-*	Gerador e Validador de CPF v1.0.0
-*	https://github.com/tiagoporto/gerador-validador-cpf
-*	Copyright (c) 2014-2015 Tiago Porto (http://www.tiagoporto.com)
-*	Released under the MIT license
-*/
-function CPF() {
-  "user_strict";
-  function r(r) {
-    for (var t = null, n = 0; 9 > n; ++n) {
-      t += r.toString().charAt(n) * (10 - n);
-    }var i = t % 11;return i = 2 > i ? 0 : 11 - i;
-  }function t(r) {
-    for (var t = null, n = 0; 10 > n; ++n) {
-      t += r.toString().charAt(n) * (11 - n);
-    }var i = t % 11;return i = 2 > i ? 0 : 11 - i;
-  }var n = false,
-      i = true;this.generate = function () {
-    for (var n = "", i = 0; 9 > i; ++i) {
-      n += Math.floor(9 * Math.random()) + "";
-    }var o = r(n),
-        a = n + "-" + o + t(n + "" + o);return a;
-  }, this.isValid = function (o) {
-    for (var a = o.replace(/\D/g, ""), u = a.substring(0, 9), f = a.substring(9, 11), v = 0; 10 > v; v++) {
-      if ("" + u + f == "" + v + v + v + v + v + v + v + v + v + v + v) return n;
-    }var c = r(u),
-        e = t(u + "" + c);return f.toString() === c.toString() + e.toString() ? i : n;
-  };
-}
-window.GumgaCPF = new CPF();
 
 /***/ })
 /******/ ]);

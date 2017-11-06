@@ -6,8 +6,20 @@
   <input type="number"
          ng-model="func.idade"
          field="Idade"
+         gumga-validate-type 
+         gumga-error
          name="idade"
          class="form-control">
+
+  <label>CPF</label><br/>
+  <input type="cpf"
+        ng-model="func.cpf"
+        field="Idade"
+        gumga-validate-type 
+        gumga-error
+        name="cpf"
+        class="form-control">
+
 </div>
 
 

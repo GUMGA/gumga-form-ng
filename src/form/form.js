@@ -67,7 +67,7 @@
 					return this;
 				}
 
-				function changeStateOfInput(inputName, validationType, inputIsValid, value, field){
+				function changeStateOfInput(inputName, validationType, inputIsValid, value, field, customMessage){
 					field = field || inputName;
 					if(!inputName) throw 'É necessário passar um valor válido como primeiro parâmetro [changeStateOfInput(inputName, validationType, inputIsValid, value)]';
 					if(!validationType) throw 'É necessário passar um valor válido como segundo parâmetro [changeStateOfInput(inputName, validationType, inputIsValid, value)]';
@@ -79,10 +79,10 @@
 							objectSentToGumgaError;
 
 					objectSentToGumgaError = (!inputIsValid) ? {message, validationType} : { validationType }
-					this.updateFormErrors(inputName, validationType, inputIsValid, message);
+					this.updateFormErrors(inputName, validationType, inputIsValid, customMessage || message);
 
 					$scope.$broadcast('form-changed');
-
+					if(customMessage) objectSentToGumgaError.message = customMessage;
 					$scope.$broadcast(`${inputName}-${inputIsValid ? '' : 'in'}valid`, objectSentToGumgaError);
 
 					return this;

@@ -21,15 +21,22 @@
           case 'datetime-local': type = 'data e hora'; break;
           case 'time': type = 'hora'; break;
           case 'week': type = 'semana'; break;
+          case 'cpf': type = 'CPF'; break;
           case 'month': type = 'mês'; break;
           case 'number': type = 'número'; break;
           case 'url': type = 'URL'; break;
           case 'email': type = 'e-mail'; break;
           default: type = 'unknown';
         }
-        if (type == 'unknown') throw 'Esta diretiva suporta apenas inputs dos tipos date, datetime-local, time, week, month, number, url e email.';
+        if (type == 'unknown') throw 'Esta diretiva suporta apenas inputs dos tipos date, datetime-local, time, week, month, number, url, cpf e email.';
 
         function validateType(inputValue) {
+          if(type == 'CPF' && inputValue){
+            let isValid = window.GumgaCPF.isValid(inputValue);
+            ngModel.$setValidity(error, isValid);
+            gumgaForm.changeStateOfInput(name, error, isValid, type, field, `Por favor, informe um CPF válido.`);
+            return inputValue;
+          }
           if (inputValue) {
             let isValid = elm[0].validity.valid;
             ngModel.$setValidity(error, isValid);
