@@ -302,7 +302,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 				ctrl.deleteErrosByInputName = deleteErrosByInputName;
 
 				$scope.$on('$destroy', function () {
-					window.gumgaForms = $rootScope.gumgaForms.filter(function (form) {
+					window.gumgaForms = ($rootScope.gumgaForms || []).filter(function (form) {
 						return form.$scope.$id != $scope.$id;
 					});
 				});

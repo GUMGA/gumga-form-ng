@@ -45,13 +45,11 @@
 				ctrl.updateFormErrors 	= updateFormErrors;
 				ctrl.deleteErrosByInputName 	= deleteErrosByInputName;
 
-
-
-				$scope.$on('$destroy', () => {
-					window.gumgaForms = $rootScope.gumgaForms.filter(form => {
+				$scope.$on('$destroy', function () {
+					window.gumgaForms = ($rootScope.gumgaForms||[]).filter(function (form) {
 						return form.$scope.$id != $scope.$id;
 					});
-				})
+				});
 
 				ctrl.updateErrorsModel = () => $scope.$broadcast('form-changed');
 
