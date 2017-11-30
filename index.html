@@ -7,37 +7,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
+    <link rel="stylesheet" href="gumga-layout/gumga-layout.min.css">
 
 </head>
 
 <body ng-controller="filterCtrl">
 
-  <br>
-  <br>
-  <br>
-  <div class="container">
+  <div class="gumga-layout">
 
-    <form name="myForm" gumga-form>
-
-      <campos></campos>
-
-
-      <gumga-errors placement="right" errors="teste" icon="glyphicon glyphicon-info-sign" label="Campos inválidos" title="Campos inválidos">
-      </gumga-errors>
-
-      <br>
-      <br>
-      <br>
-
-      <pre>{{myForm|json}}</pre>
-    </form>
-
+    <br>
+    <br>
+    <br>
+    <div class="container">
+  
+      <form name="myForm" gumga-form>
+  
+        <campos></campos>
+  
+        <gumga-errors placement="right" 
+                      errors="teste"
+                      icon="glyphicon glyphicon-info-sign" 
+                      label="Campos inválidos" 
+                      title="Campos inválidos">
+        </gumga-errors>
+  
+        <br>
+        <br>
+        <br>
+  
+        <pre>{{myForm|json}}</pre>
+      </form>
+  
+  
+    </div>
+  
 
   </div>
 
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="node_modules/angular/angular.min.js"></script>
+  <script src="gumga-layout/gumga-layout.min.js"></script>
   <script src="node_modules/angular-input-masks/releases/angular-input-masks-standalone.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/2.5.0/ui-bootstrap-tpls.min.js"></script>
@@ -47,7 +56,7 @@
   <script src="dist/gumga-form.js"></script>
 
   <script>
-    angular.module('yourApp', ['gumga.form', 'gumga.manytoone', 'gumga.controller', 'gumga.rest', 'ui.bootstrap', 'ui.utils.masks'])
+    angular.module('yourApp', ['gumga.layout', 'gumga.form', 'gumga.manytoone', 'gumga.controller', 'gumga.rest', 'ui.bootstrap', 'ui.utils.masks'])
       .config(function ($httpProvider) {
         $httpProvider.defaults.headers.common['gumgaToken'] = 'homologacaokids'
       })

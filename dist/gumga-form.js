@@ -95,23 +95,24 @@
 				if (gumgaCtrl && gumgaCtrl.form) {
 					var elmError = gumgaCtrl.form.scope()[gumgaCtrl.form[0].name],
 					    errors = {};
-
 					if (elmError && elm[0].name) {
-						gumgaCtrl.form.scope().$watch(function () {
-							if (gumgaCtrl.form.scope()[gumgaCtrl.form[0].name][elm[0].name]) {
-								var obj = gumgaCtrl.form.scope()[gumgaCtrl.form[0].name][elm[0].name].$error;
-								Object.keys(errors).forEach(function (key) {
-									delete gumgaCtrl.formErrors[elm[0].name][key];
-								});
-								Object.keys(obj).forEach(function (key) {
-									if (attrs.hasOwnProperty(key + 'Message')) {
-										var message = attrs[key + 'Message'];
-										errors[key] = true;
-										gumgaCtrl.updateFormErrors(elm[0].name, key, false, message);
-									}
-								});
-								scope.$broadcast('form-changed');
-							}
+						gumgaCtrl.form.scope().$watch(gumgaCtrl.form[0].name + '.' + elm[0].name + '.$error', function () {
+							$timeout(function () {
+								if (gumgaCtrl.form.scope()[gumgaCtrl.form[0].name][elm[0].name]) {
+									var obj = gumgaCtrl.form.scope()[gumgaCtrl.form[0].name][elm[0].name].$error;
+									Object.keys(errors).forEach(function (key) {
+										return delete gumgaCtrl.formErrors[elm[0].name][key];
+									});
+									Object.keys(obj).forEach(function (key) {
+										if (attrs.hasOwnProperty(key + 'Message')) {
+											var message = attrs[key + 'Message'];
+											errors[key] = true;
+											gumgaCtrl.updateFormErrors(elm[0].name, key, false, message);
+										}
+									});
+									$rootScope.$broadcast('form-changed');
+								}
+							});
 						}, true);
 					}
 				}
