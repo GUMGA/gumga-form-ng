@@ -19,12 +19,13 @@
 
 
 				if (gumgaCtrl && gumgaCtrl.form) {
-					let elmError = gumgaCtrl.form.scope()[gumgaCtrl.form[0].name], errors = {};
+					let formName = angular.element(gumgaCtrl.form[0]).attr('name');
+					let elmError = gumgaCtrl.form.scope()[formName], errors = {};
 					if (elmError && elm[0].name) {
-						gumgaCtrl.form.scope().$watch(`${gumgaCtrl.form[0].name}.${elm[0].name}.$error`, () => {
+						gumgaCtrl.form.scope().$watch(`${formName}.${elm[0].name}.$error`, () => {
 							$timeout(() => {
-								if (gumgaCtrl.form.scope()[gumgaCtrl.form[0].name][elm[0].name]) {
-									let obj = gumgaCtrl.form.scope()[gumgaCtrl.form[0].name][elm[0].name].$error;
+								if (gumgaCtrl.form.scope()[formName][elm[0].name]) {
+									let obj = gumgaCtrl.form.scope()[formName][elm[0].name].$error;
 									Object.keys(errors).forEach(key => delete gumgaCtrl.formErrors[elm[0].name][key]);
 									Object.keys(obj).forEach(key => {
 										if (attrs.hasOwnProperty(key + 'Message')) {
