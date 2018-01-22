@@ -18,7 +18,8 @@
   require ('./validate/type.js');
   require ('./model-error/model-error.js');
   require ('./model-error/model-error.provider.js');
-
+  require ('./percentage/percentage.js');
+  require('angular-input-masks');
 
   angular.module('gumga.form', [
     'gumga.form.form',
@@ -37,7 +38,9 @@
     'gumga.form.required',
     'gumga.form.validate.type',
     'gumga.form.modelerror',
-    'gumga.form.modelerror.provider'
+    'gumga.form.modelerror.provider',
+    'gumga.form.percentage',
+    'ui.utils.masks'
   ])
 })();
 

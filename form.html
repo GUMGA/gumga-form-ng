@@ -1,29 +1,10 @@
 <div class="form-group" ng-repeat="func in funcionarios">
-  <label>Nome</label>
-  <br/>
-  <input type="text" ng-model="func.nome" field="Nome do funcionario" name="{{'nome'+$index}}" class="form-control">
-  <label>Idade</label>
-  <br/>
-  <input type="number" ng-model="func.idade" field="Idade" gumga-validate-type gumga-error name="idade" class="form-control">
 
-  <label>CPF</label>
-  <br/>
-  <input type="cpf" ng-model="func.cpf" field="Idade" gumga-validate-type gumga-error name="cpf" class="form-control">
+  <div class="input-group">
+    <label>Porcentagem: {{numero}}</label> <br>
+    
+    <input type="text" gumga-percentage="0" gumga-percentage-value ng-model="numero"/>
+
+  </div>
 
 </div>
-
-
-
-<!-- <input type="text" name="field" ng-model="initializedCpf" ui-br-cnpj-mask cnpj-message="Informe um CNPJ Válido" gumga-error> -->
-
-
-
-<gmd-input>
-  <input type="text" class="form-control gmd" name="field2" ng-model="initializedCpf2" ui-br-cpf-mask cpf-message="Informe um CPF Válido" gumga-error>
-</gmd-input>
-
-
-<gumga-address value="teste" name="testeeee" street-number="false" state-city-ibge="false"></gumga-address>
-
-<br>
-<br>

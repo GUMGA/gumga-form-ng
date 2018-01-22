@@ -1,13 +1,14 @@
 {
   "name": "gumga-form-ng",
-  "version": "1.4.2",
+  "version": "1.5.0",
   "description": "Gumga Form",
   "main": "./src/index.js",
   "directories": {
     "example": "example"
   },
   "dependencies": {
-    "angular": "1.5.8"
+    "angular": "1.5.8",
+    "angular-input-masks": "^4.1.0"
   },
   "babel": {
     "presets": [
